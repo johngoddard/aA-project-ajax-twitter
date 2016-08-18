@@ -1,0 +1,35 @@
+<h2>New Tweet!</h2>
+<form action="/tweets" method="POST" class="tweet-compose" data-tweets-ul="#feed">
+  <input
+      type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+
+  <label>
+    Content
+    <textarea name="tweet[content]"></textarea>
+    <strong class="chars-left">You have 140 characters remaining</strong>
+  </label>
+  <br>
+
+  <a href="javascript:void(0)" class="add-mentioned-user">Add mention</a>
+
+  <script type="text/template" class='mention-script'>
+    <div class='select-div'>
+      <select name="tweet[mentioned_user_ids][]">
+        <option></option>
+        <% User.all.each do |user| %>
+        <option value="<%= user.id %>"><%= user.username %></option>
+        <% end %>
+      </select>
+      <a href="javascript:void(0)" class="remove-mentioned-user">Remove mention</a>
+    </div>
+  </script>
+  <br>
+
+  <div class="mentioned-users">
+
+  </div>
+
+  <input type="Submit" value="Post Tweet!">
+</form>
