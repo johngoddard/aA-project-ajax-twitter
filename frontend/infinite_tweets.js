@@ -2,6 +2,8 @@ class InfiniteTweets {
   constructor($el) {
     this.$el = $el;
     $(".fetch-more").click(event => this.fetchTweets(event));
+    $('#feed').on('insert-tweet', (event, tweet) => { this.insertTweets([tweet], true); });
+
     this.maxCreatedAt = null;
     this.fetchTweets();
   }
@@ -28,12 +30,17 @@ class InfiniteTweets {
     });
   }
 
-  insertTweets(tweets){
+  insertTweets(tweets, newlyCreated = false){
+
     tweets.forEach(tweet => {
       let content = [tweet.user.username, tweet.content, tweet.created_at].join(" -- ");
       let $li = $('<li>').text(content);//Add full content
       $li.data(tweet);
-      $('#feed').append($li);
+      if(newlyCreated){
+        $('#feed').prepend($li);
+      } else{
+        $('#feed').append($li);
+      }
     });
   }
 

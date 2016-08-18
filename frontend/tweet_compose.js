@@ -34,20 +34,14 @@ class TweetCompose {
     $('.chars-left').text(`You have ${charsLeft} characters remaining`);
   }
   handleSuccess(data){
-    console.log(data);
     this.clearInput();
 
     this.$inputs.each((idx, el) => {
       $(el).removeProp('disabled');
     });
 
-    // let content = [data.content, data.username, data.created_at].join(" -- ");
-    let tweet = JSON.stringify(data);
-
-    let $li = $('<li>').text(data.content);//Add full content
-    $li.data(tweet);
-    let selector = this.$el.data('tweets-ul');
-    $(selector).prepend($li);
+    let selector = this.$el.data('tweets-ul');//instead fire "custom event"
+    $(selector).trigger("insert-tweet", [data]);
   }
 
   submit(event){
