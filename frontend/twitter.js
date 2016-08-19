@@ -9,15 +9,7 @@ $(() => {
     let toggle = new FollowToggle($(el));
   });
 
-  $('nav.users-search').each((idx, el) => {
-    let search = new UserSearch($(el));
-  });
-
-  $('form.tweet-compose').each((idx, el) => {
-    let tweetCompose = new TweetCompose($(el));
-  });
-
-  $('div.infinite-tweets').each((idx, el) => {
-    let infiniteTweets = new InfiniteTweets($(el));
-  });
+  new UserSearch($('nav.users-search'));
+  new TweetCompose($('form.tweet-compose'));
+  new InfiniteTweets($('div.infinite-tweets'));
 });
