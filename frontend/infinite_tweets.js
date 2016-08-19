@@ -31,19 +31,14 @@ class InfiniteTweets {
   }
 
   insertTweets(tweets, newlyCreated = false){
-
-    tweets.forEach(tweet => {
-      let content = [tweet.user.username, tweet.content, tweet.created_at].join(" -- ");
-      let $li = $('<li>').text(content);//Add full content
-      $li.data(tweet);
-      if(newlyCreated){
-        $('#feed').prepend($li);
-      } else{
-        $('#feed').append($li);
-      }
-    });
+    let $tweetShowTemplate = $(".tweet-feed").html();
+    const something = _.template($tweetShowTemplate);
+    if(newlyCreated){
+      $('#feed').prepend(something({tweets: tweets}));
+    } else {
+      $('#feed').append(something({tweets: tweets}));
+    }
   }
-
 }
 
 
