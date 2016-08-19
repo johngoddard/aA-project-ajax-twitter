@@ -4,22 +4,24 @@ class TweetCompose {
     $el.submit(event => {this.submit(event);});
     this.$inputs = $(":input");
 
+    this.addListeners();
+  }
+
+  addListeners(){
     $("textarea").keyup((event) => this.updateChars());
-
     $('.add-mentioned-user').click(event => this.addMentionedUser(event));
+    $(".mentioned-users").on("click", "a", event => this.removeMentionedUser(event));
+  }
 
-
+  removeMentionedUser(event){
+    event.preventDefault();
+    $(event.currentTarget).parent('.select-div').remove();
   }
 
   addMentionedUser(event){
     event.preventDefault();
     let selectorHTML = $('.mention-script').html();
     $('.mentioned-users').append(selectorHTML);
-
-    $(".select-div").on("click", "a", event2 => {
-      event2.preventDefault();
-      $(event2.delegateTarget).remove();
-    });
   }
 
   clearInput(){
